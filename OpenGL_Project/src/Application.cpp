@@ -1,4 +1,5 @@
 // Must include GLEW (GL) before GLFW
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 // For Debug I/O
@@ -8,9 +9,12 @@ int main(void)
 {
     GLFWwindow* window;
 
-    /* Initialize the library */
-    if (!glfwInit())
+    // Initialize the GLFW window/context manager
+    if (glfwInit() != GLFW_TRUE)
+    {
+        printf("GLFW Init Error");
         return -1;
+    }
 
     /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
@@ -22,6 +26,13 @@ int main(void)
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
+
+    // Initialize GLEW extension manager (must be done after a context is made current)
+    if (glewInit() != GLEW_OK)
+    {
+        printf("GLEW Init Error");
+        return -1;
+    }
 
     printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
     
