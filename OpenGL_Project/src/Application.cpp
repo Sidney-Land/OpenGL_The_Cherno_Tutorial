@@ -1,4 +1,8 @@
+// Must include GLEW (GL) before GLFW
 #include <GLFW/glfw3.h>
+
+// For Debug I/O
+#include <iostream>
 
 int main(void)
 {
@@ -18,6 +22,11 @@ int main(void)
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
+
+    printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
+    
+    // Only update display buffer (by swapping the double buffers) after 1 frame has been fully generated (enables vsync)
+    glfwSwapInterval(1);
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
