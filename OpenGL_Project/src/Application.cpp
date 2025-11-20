@@ -4,11 +4,11 @@ Author: Sidney Land
 This program handles the main thread of this OpenGL project.
 */
 
-// Must include GLEW (GL) before GLFW
+// Must include GLEW (Extension Wrangler) before GLFW (Window/Context Manager)
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-// For Debug I/O
+// For I/O
 #include <iostream>
 
 // Verticies will be positioned in POS_DIMENSION-D space (for example, 2-D space)
@@ -65,8 +65,10 @@ int main(void)
         return -1;
     }
 
-    // Print the current OpenGL version being used
+    // Print the current OpenGL version being used, only in Debug builds
+    #ifdef _DEBUG
     printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
+    #endif
     
     // Only update display buffer (by swapping the double buffers) after 1 frame has been fully generated (enables vsync)
     glfwSwapInterval(SWAP_INTERVAL);
